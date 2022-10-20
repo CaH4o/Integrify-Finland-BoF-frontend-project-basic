@@ -1,15 +1,43 @@
 .App {
-  text-align: center;
-}
-
-.root {
+  /*  text-align: center; */
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(10px + 1.5vmin);
   color: white;
 }
 
+ul {
+  list-style-type: none;
+}
+
+ul li {
+  margin: 0.5em;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-areas: "flag part1 part1 part2 part2 links";
+}
+ul li div:nth-child(1) {
+  grid-area: flag;
+}
+ul li div:nth-child(2) {
+  grid-area: part1;
+}
+ul li div:nth-child(3) {
+  grid-area: part2;
+}
+ul li div:nth-child(4) {
+  grid-area: links;
+}
+
+ul li img {
+  border: 0.1em solid cadetblue;
+  height: 120px;
+}
+
+ul li p {
+  margin: 0 1em;
+}

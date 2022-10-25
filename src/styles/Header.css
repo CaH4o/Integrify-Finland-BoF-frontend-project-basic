@@ -1,0 +1,13 @@
+.mainNav {
+    text-decoration: none;
+    margin: 0.5rem;
+    font-size: 1.3rem;
+    list-style: none;
+    background-color: antiquewhite;
+    padding: 0.5rem;
+}
+
+nav {
+    align-self: flex-start;
+    margin: 1em 0;
+}

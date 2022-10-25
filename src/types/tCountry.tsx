@@ -1,13 +1,22 @@
+type tNativeName = {
+  [index: string]: {
+    official: string;
+    common: string;
+  };
+};
+
+type tDemonyms = {
+  [index: string]: {
+    f: string;
+    m: string;
+  };
+};
+
 export interface tCountry {
   name: {
     common: string; //"Bulgaria"
     official: string; //"Republic of Bulgaria"
-    nativeName: {
-      bul: {
-        official: string; //"Република България"
-        common: string; //"България"
-      };
-    };
+    nativeName?: tNativeName; //{ bul: { official: "Република България"; common: "България"; }; };
   };
   tld: string[]; //"[.bg]"
   cca2: string; //"BG"
@@ -17,143 +26,60 @@ export interface tCountry {
   independent: boolean; //true
   status: string; //"officially-assigned"
   unMember: boolean; //true
-  currencies: {
-    BGN: {
-      name: string; //"Bulgarian lev"
-      symbol: string; //"лв"
-    };
-  };
+  currencies?: object; // { BGN: { name: "Bulgarian lev"; symbol: "лв"; }; };
   idd: {
     root: string; //"+3",
     suffixes: string[]; //["59"]
   };
-  capital: string[]; //[Sofia]
+  capital?: string[]; //[Sofia]
   altSpellings: string[]; //["BG", "Republic of Bulgaria", "Република България"]
   region: string; //"Europe"
-  subregion: string; //"Southeast Europe"
-  languages?: object; // { bul: "Bulgarian" } || { "eng": "English", "hin": "Hindi" }
-  translations: {
-    ara: {
-      official: string; //"جمهورية بلغاريا"
-      common: string; //"بلغاريا"
-    };
-    bre: {
-      official: string; //"Republik Bulgaria"
-      common: string; //"Bulgaria"
-    };
-    ces: {
-      official: string; //"Bulharská republika"
-      common: string; //"Bulharsko"
-    };
-    cym: {
-      official: string; //"Gweriniaeth Bwlgaria"
-      common: string; //"Bwlgaria"
-    };
-    deu: {
-      official: string; //"Republik Bulgarien"
-      common: string; //"Bulgarien"
-    };
-    est: {
-      official: string; //"Bulgaaria Vabariik"
-      common: string; //"Bulgaaria"
-    };
-    fin: {
-      official: string; //"Bulgarian tasavalta"
-      common: string; //"Bulgaria"
-    };
-    fra: {
-      official: string; //"République de Bulgarie"
-      common: string; //"Bulgarie"
-    };
-    hrv: {
-      official: string; //"Republika Bugarska"
-      common: string; //"Bugarska"
-    };
-    hun: {
-      official: string; //"Bolgár Köztársaság"
-      common: string; //"Bulgária"
-    };
-    ita: {
-      official: string; //"Repubblica di Bulgaria"
-      common: string; //"Bulgaria"
-    };
-    jpn: {
-      official: string; //"ブルガリア共和国"
-      common: string; //"ブルガリア"
-    };
-    kor: {
-      official: string; //"불가리아 공화국"
-      common: string; //"불가리아"
-    };
-    nld: {
-      official: string; //"Republiek Bulgarije";
-      common: string; //"Bulgarije"
-    };
-    per: {
-      official: string; //"جمهوری بلغارستان"
-      common: string; //"بلغارستان"
-    };
-    pol: {
-      official: string; //"Republika Bułgarii"
-      common: string; //"Bułgaria"
-    };
-    por: {
-      official: string; //"República da Bulgária"
-      common: string; //"Bulgária"
-    };
-    rus: {
-      official: string; //"Республика Болгария"
-      common: string; //"Болгария"
-    };
-    slk: {
-      official: string; //"Bulharská republika"
-      common: string; //"Bulharsko"
-    };
-    spa: {
-      official: string; //"República de Bulgaria"
-      common: string; //"Bulgaria"
-    };
-    swe: {
-      official: string; //"Republiken Bulgarien"
-      common: string; //"Bulgarien"
-    };
-    tur: {
-      official: string; //"Bulgaristan Cumhuriyeti"
-      common: string; //"Bulgaristan"
-    };
-    urd: {
-      official: string; //"جمہوریہ بلغاریہ"
-      common: string; //"بلغاریہ"
-    };
-    zho: {
-      official: string; //"保加利亚共和国"
-      common: string; //"保加利亚"
-    };
-  };
+  subregion?: string; //"Southeast Europe"
+  languages?: object; // { bul: "Bulgarian" }
+  translations: tNativeName[] /* {
+    ara: { official: "جمهورية بلغاريا"; common: "بلغاريا"; };
+    bre: { official: "Republik Bulgaria"; common: "Bulgaria"; };
+    ces: { official: "Bulharská republika"; common: "Bulharsko"; };
+    cym: { official: "Gweriniaeth Bwlgaria"; common: "Bwlgaria"; };
+    deu: { official: "Republik Bulgarien"; common: "Bulgarien"; };
+    est: { official: "Bulgaaria Vabariik"; common: "Bulgaaria"; };
+    fin: { official: "Bulgarian tasavalta"; common: "Bulgaria"; };
+    fra: { official: "République de Bulgarie"; common: "Bulgarie"; };
+    hrv: { official: "Republika Bugarska"; common: "Bugarska"; };
+    hun: { official: "Bolgár Köztársaság"; common: "Bulgária"; };
+    ita: { official: "Repubblica di Bulgaria"; common: "Bulgaria"; };
+    jpn: { official: "ブルガリア共和国"; common: "ブルガリア"; };
+    kor: { official: "불가리아 공화국"; common: "불가리아"; };
+    nld: { official: "Republiek Bulgarije"; common: "Bulgarije"; };
+    per: { official: "جمهوری بلغارستان"; common: "بلغارستان"; };
+    pol: { official: "Republika Bułgarii"; common: "Bułgaria"; };
+    por: { official: "República da Bulgária"; common: "Bulgária"; };
+    rus: { official: "Республика Болгария"; common: "Болгария"; };
+    slk: { official: "Bulharská republika"; common: "Bulharsko"; };
+    spa: { official: "República de Bulgaria"; common: "Bulgaria"; };
+    swe: { official: "Republiken Bulgarien"; common: "Bulgarien"; };
+    tur: { official: "Bulgaristan Cumhuriyeti"; common: "Bulgaristan"; };
+    urd: { official: "جمہوریہ بلغاریہ"; common: "بلغاریہ"; };
+    zho: { official: "保加利亚共和国"; common: "保加利亚"; };
+  }; */;
   latlng: number[]; //[43.0, 25.0]
   landlocked: boolean; //false
-  borders: string[]; //["GRC", "MKD", "ROU", "SRB", "TUR"]
+  borders?: string[]; //["GRC", "MKD", "ROU", "SRB", "TUR"]
   area: number; //110879.0
-  demonyms: {
-    eng: {
-      f: string; //"Bulgarian"
-      m: string; //"Bulgarian"
-    };
-    fra: {
-      f: string; //"Bulgare"
-      m: string; //"Bulgare"
-    };
-  };
+  demonyms: tDemonyms[]; /* {
+    eng: { f: "Bulgarian";  m: "Bulgarian"; };
+    fra: { f: "Bulgare"; m: "Bulgare"; };
+  }; */
   flag: string; //"🇧🇬"
   maps: {
     googleMaps: string; //"https://goo.gl/maps/F5uAhDGWzc3BrHfm9"
     openStreetMaps: string; //"https://www.openstreetmap.org/relation/186382"
   };
   population: number; //6927288
-  gini: {
+  gini?: {
     "2018": number; // 41.3
   };
-  fifa: string; //"BUL"
+  fifa?: string; //"BUL"
   car: {
     signs: string[]; //["BG"]
     side: string; //"right"
@@ -169,10 +95,10 @@ export interface tCountry {
     svg: string; //"https://mainfacts.com/media/images/coats_of_arms/bg.svg"
   };
   startOfWeek: string; //"monday"
-  capitalInfo: {
+  capitalInfo?: {
     latlng: number[]; //[42.68, 23.32]
   };
-  postalCode: {
+  postalCode?: {
     format: string; //"####"
     regex: string; //"^(\\d{4})$"
   };

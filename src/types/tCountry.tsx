@@ -14,92 +14,64 @@ type tDemonyms = {
 
 export interface tCountry {
   name: {
-    common: string; //"Bulgaria"
-    official: string; //"Republic of Bulgaria"
-    nativeName?: tNativeName; //{ bul: { official: "Република България"; common: "България"; }; };
+    common: string;
+    official: string;
+    nativeName?: tNativeName;
   };
-  tld: string[]; //"[.bg]"
-  cca2: string; //"BG"
-  ccn3: string; //"100"
-  cca3: string; //"BGR"
-  cioc: string; //"BUL"
-  independent: boolean; //true
-  status: string; //"officially-assigned"
-  unMember: boolean; //true
-  currencies?: object; // { BGN: { name: "Bulgarian lev"; symbol: "лв"; }; };
+  tld: string[];
+  cca2: string; 
+  ccn3: string; 
+  cca3: string; 
+  cioc: string; 
+  independent: boolean; 
+  status: string; 
+  unMember: boolean; 
+  currencies?: object; 
   idd: {
-    root: string; //"+3",
-    suffixes: string[]; //["59"]
+    root: string;
+    suffixes: string[];
   };
-  capital?: string[]; //[Sofia]
-  altSpellings: string[]; //["BG", "Republic of Bulgaria", "Република България"]
-  region: string; //"Europe"
-  subregion?: string; //"Southeast Europe"
-  languages?: object; // { bul: "Bulgarian" }
-  translations: tNativeName[] /* {
-    ara: { official: "جمهورية بلغاريا"; common: "بلغاريا"; };
-    bre: { official: "Republik Bulgaria"; common: "Bulgaria"; };
-    ces: { official: "Bulharská republika"; common: "Bulharsko"; };
-    cym: { official: "Gweriniaeth Bwlgaria"; common: "Bwlgaria"; };
-    deu: { official: "Republik Bulgarien"; common: "Bulgarien"; };
-    est: { official: "Bulgaaria Vabariik"; common: "Bulgaaria"; };
-    fin: { official: "Bulgarian tasavalta"; common: "Bulgaria"; };
-    fra: { official: "République de Bulgarie"; common: "Bulgarie"; };
-    hrv: { official: "Republika Bugarska"; common: "Bugarska"; };
-    hun: { official: "Bolgár Köztársaság"; common: "Bulgária"; };
-    ita: { official: "Repubblica di Bulgaria"; common: "Bulgaria"; };
-    jpn: { official: "ブルガリア共和国"; common: "ブルガリア"; };
-    kor: { official: "불가리아 공화국"; common: "불가리아"; };
-    nld: { official: "Republiek Bulgarije"; common: "Bulgarije"; };
-    per: { official: "جمهوری بلغارستان"; common: "بلغارستان"; };
-    pol: { official: "Republika Bułgarii"; common: "Bułgaria"; };
-    por: { official: "República da Bulgária"; common: "Bulgária"; };
-    rus: { official: "Республика Болгария"; common: "Болгария"; };
-    slk: { official: "Bulharská republika"; common: "Bulharsko"; };
-    spa: { official: "República de Bulgaria"; common: "Bulgaria"; };
-    swe: { official: "Republiken Bulgarien"; common: "Bulgarien"; };
-    tur: { official: "Bulgaristan Cumhuriyeti"; common: "Bulgaristan"; };
-    urd: { official: "جمہوریہ بلغاریہ"; common: "بلغاریہ"; };
-    zho: { official: "保加利亚共和国"; common: "保加利亚"; };
-  }; */;
-  latlng: number[]; //[43.0, 25.0]
-  landlocked: boolean; //false
-  borders?: string[]; //["GRC", "MKD", "ROU", "SRB", "TUR"]
-  area: number; //110879.0
-  demonyms: tDemonyms[]; /* {
-    eng: { f: "Bulgarian";  m: "Bulgarian"; };
-    fra: { f: "Bulgare"; m: "Bulgare"; };
-  }; */
-  flag: string; //"🇧🇬"
+  capital?: string[];
+  altSpellings: string[];
+  region: string;
+  subregion?: string;
+  languages?: object;
+  translations: tNativeName[];
+  latlng: number[]; 
+  landlocked: boolean; 
+  borders?: string[];
+  area: number; 
+  demonyms: tDemonyms[];
+  flag: string; 
   maps: {
-    googleMaps: string; //"https://goo.gl/maps/F5uAhDGWzc3BrHfm9"
-    openStreetMaps: string; //"https://www.openstreetmap.org/relation/186382"
+    googleMaps: string; 
+    openStreetMaps: string; 
   };
-  population: number; //6927288
+  population: number;
   gini?: {
-    "2018": number; // 41.3
+    "2018": number;
   };
-  fifa?: string; //"BUL"
+  fifa?: string; 
   car: {
-    signs: string[]; //["BG"]
-    side: string; //"right"
+    signs: string[]; 
+    side: string;
   };
-  timezones: string[]; //["UTC+02:00"]
-  continents: string[]; //["Europe"]
+  timezones: string[]; 
+  continents: string[]; 
   flags: {
-    png: string; //"https://flagcdn.com/w320/bg.png"
-    svg: string; //"https://flagcdn.com/bg.svg"
+    png: string; 
+    svg: string; 
   };
   coatOfArms: {
-    png: string; //"https://mainfacts.com/media/images/coats_of_arms/bg.png"
-    svg: string; //"https://mainfacts.com/media/images/coats_of_arms/bg.svg"
+    png: string; 
+    svg: string; 
   };
-  startOfWeek: string; //"monday"
+  startOfWeek: string; 
   capitalInfo?: {
-    latlng: number[]; //[42.68, 23.32]
+    latlng: number[];
   };
   postalCode?: {
-    format: string; //"####"
-    regex: string; //"^(\\d{4})$"
+    format: string; 
+    regex: string; 
   };
 }

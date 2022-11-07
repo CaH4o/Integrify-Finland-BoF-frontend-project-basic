@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-let initialState: "light" | "dark" = "light";
+const initialState: "light" | "dark" = "light";
 
 const themeModeSlicer = createSlice({
   name: "themeMode",
   initialState,
   reducers: {
     toggleMode: (state: "light" | "dark") => {
+      console.log("before, ", state)
       state = state === "light" ? "dark" : "light";
+      console.log("after, ", state)
     },
     setMode: (
       state: "light" | "dark",

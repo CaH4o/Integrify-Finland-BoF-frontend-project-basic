@@ -12,33 +12,64 @@ import {
   TableContainer,
   TablePagination,
   Button,
-  Container
+  Container,
 } from "@mui/material";
+import TourIcon from '@mui/icons-material/Tour';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LoyaltyIcon from '@mui/icons-material/Loyalty'; 
 
 import { tCountry } from "../types/tCountry";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { RootState } from "../redux/store";
+import searchReducer from "../redux/reducers/search";
+import { fetchCountries, sortCountriesByName } from "../redux/reducers/countries";
 
 function CountrList() {
-  const url: string = "https://restcountries.com/v3.1/all";
-  const [countriesList, setCountryList] = useState<tCountry[]>([]);
+  const countriesList = useAppSelector((state) => state.countriesReducer);
+  const dispatch = useAppDispatch();
+  useEffect(function () {
+    dispatch(fetchCountries());
+  }, []);
 
-  useEffect(
-    function () {
-      fetch(url)
-        .then(function (respons: Response) {
-          if (!respons.ok) {
-            console.log(respons);
-          }
-          return respons.json();
-        })
-        .then(function (data: tCountry[]) {
-          setCountryList(data);
-        })
-        .catch(function (error: Error) {
-          console.log("Error: " + error);
-        });
-    },
-    [url]
+  const search: string = useAppSelector(
+    (state: RootState) => state.searchReducer
   );
+  const [order, setOrder] = useState<"asc" | "dsc">("asc");
+  const [page, setPage] = React.useState<number>(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState<number>(10);
+  const emptyRows: number =
+    page > 0
+      ? Math.max(
+          0,
+          (1 + page) * rowsPerPage -
+            countriesList.filter((cntry) => cntry.name.common.includes(search))
+              .length
+        )
+      : 0;
+
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  /*   function sortByName() {
+    dispatch(sortCountriesByName(order));
+    if (order === "asc") {
+      setOrder("dsc");
+    } else {
+      setOrder("asc");
+    }
+  } */
 
   return (
     <Container>
@@ -46,9 +77,9 @@ function CountrList() {
       <TableContainer>
         <Table size="small" aria-label="a dense table">
           <TableHead>
-            <TableRow>
+            <TableRow style={{ height: 40 }}>
               <TableCell align="center">Flag</TableCell>
-              <TableCell align="center">Country Name</TableCell>
+              <TableCell align="center" onClick={()=>{dispatch(sortCountriesByName())}}>Country Name</TableCell>
               <TableCell align="center">Rigion</TableCell>
               <TableCell align="center">Subregion</TableCell>
               <TableCell align="center">Capital</TableCell>
@@ -57,14 +88,15 @@ function CountrList() {
               <TableCell align="center">Languages</TableCell>
               <TableCell align="center">Links</TableCell>
               <TableCell />
+              <TableCell align="center">Favorit</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {countriesList
-              //.filter((item) => item.incomeSource.includes(searchIncome))
-              //.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .filter((cntry) => cntry.name.common.includes(search))
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((cntry: tCountry) => (
-                <TableRow key={cntry.name.official} style={{ height: 33 }}>
+                <TableRow key={cntry.name.official} style={{ height: 40 }}>
                   <TableCell>
                     <img src={cntry.flags.png} alt="" />
                   </TableCell>
@@ -92,7 +124,6 @@ function CountrList() {
                         Object.values(cntry.languages)
                       )}
                   </TableCell>
-
                   <TableCell>
                     <Button href={cntry.maps.googleMaps} target="_blanck">
                       <ExploreIcon />
@@ -103,32 +134,38 @@ function CountrList() {
                       <TravelExploreIcon />
                     </Button>
                   </TableCell>
+                  <TableCell>
+                    <Button>
+                      {false ? <FavoriteIcon /> :  <FavoriteBorderIcon />}
+                    </Button>
+                  </TableCell>
+
                 </TableRow>
               ))}
-            {/*       {emptyRows > 0 && (
+            {emptyRows > 0 && (
               <TableRow
                 style={{
-                  height: 33 * emptyRows,
+                  height: 40 * emptyRows,
                 }}
               >
                 <TableCell />
               </TableRow>
-            )} */}
+            )}
           </TableBody>
           <TableFooter>
             <TableRow>
-              {/*  <TablePagination
-                rowsPerPageOptions={[3, 5, 10]}
+              <TablePagination
+                rowsPerPageOptions={[10, 50, 250]}
                 count={
-                  incomes.filter((item) =>
-                    item.incomeSource.includes(searchIncome)
+                  countriesList.filter((cntry) =>
+                    cntry.name.common.includes(search)
                   ).length
                 }
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
-              /> */}
+              />
             </TableRow>
           </TableFooter>
         </Table>

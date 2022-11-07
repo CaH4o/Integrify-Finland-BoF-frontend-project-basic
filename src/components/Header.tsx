@@ -21,6 +21,7 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { RootState } from "../redux/store";
 import { toggleMode } from "../redux/reducers/themeMode";
+import { setSearch } from "../redux/reducers/search";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -188,7 +189,9 @@ export default function PrimarySearchAppBar() {
           edge="start"
           color="inherit"
           sx={{ mr: 2 }}
-          onClick={() => dispatch(toggleMode())}
+          onClick={() => {
+            console.log("mode, ", mode);
+            dispatch(toggleMode());}}
         >
           {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
         </IconButton>
@@ -207,6 +210,7 @@ export default function PrimarySearchAppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              onChange={(e) => dispatch(setSearch(e.target.value))}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />

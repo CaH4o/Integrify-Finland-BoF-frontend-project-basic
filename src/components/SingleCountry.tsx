@@ -45,10 +45,10 @@ function SingleCountry() {
               {country[0].subregion && <p>Subregion: {country[0].subregion}</p>}
               {country[0].languages && (
                 <p>
-                  Languages:{" "}
+                   Languages:{" "}
                   {new Intl.ListFormat("en").format(
                     Object.values(country[0].languages)
-                  )}
+                  )} 
                 </p>
               )}
             </div>

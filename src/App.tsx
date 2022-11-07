@@ -11,7 +11,7 @@ import { useAppSelector } from "./hooks/reduxHooks";
 import { RootState } from "./redux/store";
 
 function App() {
-  let mode: "light" | "dark" = useAppSelector(
+  const mode: "light" | "dark" = useAppSelector(
       (state: RootState) => state.themeModeReducer
     );
   

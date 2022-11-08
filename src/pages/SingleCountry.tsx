@@ -8,7 +8,7 @@ import { tCountry } from "../types/tCountry";
 
 function SingleCountry() {
   const params = useParams();
-  const url: string = `https://restcountries.com/v3.1/name/${params.name}`;
+  const url: string = `https://restcountries.com/v3.1/name/${params.name}?fullText=true`;
   const [country, setCountry] = useState<tCountry[]>([]);
 
   useEffect(

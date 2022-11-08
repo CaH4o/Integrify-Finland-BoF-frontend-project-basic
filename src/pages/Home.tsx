@@ -12,28 +12,31 @@ import {
   TableContainer,
   TablePagination,
   Button,
-  Container,
+  Box,
 } from "@mui/material";
-import TourIcon from '@mui/icons-material/Tour';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LoyaltyIcon from '@mui/icons-material/Loyalty'; 
+import TourIcon from "@mui/icons-material/Tour";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import LoyaltyIcon from "@mui/icons-material/Loyalty";
 
 import { tCountry } from "../types/tCountry";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { RootState } from "../redux/store";
 import searchReducer from "../redux/reducers/search";
-import { fetchCountries, sortCountriesByName } from "../redux/reducers/countries";
+import {
+  fetchCountries,
+  sortCountriesByName,
+} from "../redux/reducers/countries";
 
-function CountrList() {
-  const countriesList = useAppSelector((state) => state.countriesReducer);
+function Home() {
+  const countriesList = useAppSelector((state) => state.countries.countries);
   const dispatch = useAppDispatch();
   useEffect(function () {
     dispatch(fetchCountries());
   }, []);
 
   const search: string = useAppSelector(
-    (state: RootState) => state.searchReducer
+    (state: RootState) => state.search
   );
   const [order, setOrder] = useState<"asc" | "dsc">("asc");
   const [page, setPage] = React.useState<number>(0);
@@ -62,24 +65,22 @@ function CountrList() {
     setPage(0);
   };
 
-  /*   function sortByName() {
-    dispatch(sortCountriesByName(order));
-    if (order === "asc") {
-      setOrder("dsc");
-    } else {
-      setOrder("asc");
-    }
-  } */
-
   return (
-    <Container>
+    <Box>
       {!countriesList.length && "Loading..."}
       <TableContainer>
         <Table size="small" aria-label="a dense table">
           <TableHead>
             <TableRow style={{ height: 40 }}>
               <TableCell align="center">Flag</TableCell>
-              <TableCell align="center" onClick={()=>{dispatch(sortCountriesByName())}}>Country Name</TableCell>
+              <TableCell
+                align="center"
+                onClick={() => {
+                  dispatch(sortCountriesByName());;
+                }}
+              >
+                Country Name
+              </TableCell>
               <TableCell align="center">Rigion</TableCell>
               <TableCell align="center">Subregion</TableCell>
               <TableCell align="center">Capital</TableCell>
@@ -98,12 +99,12 @@ function CountrList() {
               .map((cntry: tCountry) => (
                 <TableRow key={cntry.name.official} style={{ height: 40 }}>
                   <TableCell>
-                    <img src={cntry.flags.png} alt="" />
+                    <img src={cntry.flags.png} alt={cntry.name.official} />
                   </TableCell>
                   <TableCell>
                     <Link
                       to={cntry.name.common}
-                      style={{ backgroundColor: "transparent" }}
+                      style={{ color: "inherit", textDecoration: "inherit" }}
                     >
                       {cntry.name.official}
                     </Link>
@@ -136,10 +137,9 @@ function CountrList() {
                   </TableCell>
                   <TableCell>
                     <Button>
-                      {false ? <FavoriteIcon /> :  <FavoriteBorderIcon />}
+                      {false ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </Button>
                   </TableCell>
-
                 </TableRow>
               ))}
             {emptyRows > 0 && (
@@ -170,8 +170,8 @@ function CountrList() {
           </TableFooter>
         </Table>
       </TableContainer>
-    </Container>
+    </Box>
   );
 }
 
-export default CountrList;
+export default Home;

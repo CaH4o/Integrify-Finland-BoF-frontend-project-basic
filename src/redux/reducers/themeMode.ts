@@ -1,25 +1,22 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { PaletteMode } from "@mui/material";
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState: "light" | "dark" = "light";
+interface themeMode {
+  mode: PaletteMode
+}
+
+const initialState = {mode: "light"} as themeMode;
 
 const themeModeSlicer = createSlice({
   name: "themeMode",
   initialState,
   reducers: {
-    toggleMode: (state: "light" | "dark") => {
-      console.log("before, ", state)
-      state = state === "light" ? "dark" : "light";
-      console.log("after, ", state)
-    },
-    setMode: (
-      state: "light" | "dark",
-      action: PayloadAction<"light" | "dark">
-    ) => {
-      state = action.payload;
+    toggleMode: (state: themeMode) => {
+      state.mode = state.mode === "light" ? "dark" : "light";
     },
   },
 });
 
 const themeModeReducer = themeModeSlicer.reducer;
-export const { toggleMode, setMode } = themeModeSlicer.actions;
+export const { toggleMode } = themeModeSlicer.actions;
 export default themeModeReducer;

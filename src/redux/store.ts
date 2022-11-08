@@ -6,9 +6,9 @@ import searchReducer from "./reducers/search";
 
 const store = configureStore({
     reducer: {
-        countriesReducer,
-        themeModeReducer,
-        searchReducer
+        countries: countriesReducer,
+        theme: themeModeReducer,
+        search: searchReducer
     }
 })
 

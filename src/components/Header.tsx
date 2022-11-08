@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -22,6 +22,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { RootState } from "../redux/store";
 import { toggleMode } from "../redux/reducers/themeMode";
 import { setSearch } from "../redux/reducers/search";
+import { PaletteMode } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -166,15 +167,15 @@ export default function PrimarySearchAppBar() {
   );
 
   const dispatch = useAppDispatch();
-  let mode: "light" | "dark" = useAppSelector(
-    (state: RootState) => state.themeModeReducer
+  const mode: PaletteMode = useAppSelector(
+    (state: RootState) => state.theme.mode
   );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Link to=""           >
+          <Link to="" style={{ color: "inherit", textDecoration: "inherit" }}>
             <IconButton
               size="large"
               edge="start"
@@ -190,7 +191,6 @@ export default function PrimarySearchAppBar() {
           color="inherit"
           sx={{ mr: 2 }}
           onClick={() => {
-            console.log("mode, ", mode);
             dispatch(toggleMode());}}
         >
           {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
@@ -203,7 +203,7 @@ export default function PrimarySearchAppBar() {
           >
             Countries
           </Typography>
-          <Search>
+          <Search >
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -211,6 +211,7 @@ export default function PrimarySearchAppBar() {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
               onChange={(e) => dispatch(setSearch(e.target.value))}
+              
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />

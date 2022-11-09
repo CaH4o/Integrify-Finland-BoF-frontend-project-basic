@@ -6,7 +6,7 @@ import { PaletteMode, Box } from "@mui/material";
 import "./styles/App.css";
 import SectionHeader from "./components/Header";
 import PageHome from "./pages/Home";
-import PageSingleCountry from "./pages/SingleCountry";
+import PageCountry from "./pages/Country";
 import SectionFooter from "./components/Footer";
 import { useAppSelector } from "./hooks/reduxHooks";
 import { RootState } from "./redux/store";
@@ -47,19 +47,16 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <SectionHeader />
-          <Box
-            sx={{ bgcolor: "background.default" }}
-          >
+          <Box sx={{ bgcolor: "background.default", height: "100%" }}>
+            <SectionHeader />
             <Routes>
               <Route path="/">
                 <Route path="" element={<PageHome />} />
-                <Route path=":name" element={<PageSingleCountry />} />
+                <Route path=":name" element={<PageCountry />} />
               </Route>
             </Routes>
+            <SectionFooter />
           </Box>
-
-          <SectionFooter />
         </BrowserRouter>
       </ThemeProvider>
     </div>

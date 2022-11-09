@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link, NavLink } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -21,8 +21,8 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { RootState } from "../redux/store";
 import { toggleMode } from "../redux/reducers/themeMode";
-import { setSearch } from "../redux/reducers/search";
 import { PaletteMode } from "@mui/material";
+import { searchCountries } from "../redux/reducers/countries";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -53,14 +53,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       width: "12ch",
       "&:focus": {
-        width: "20ch",
+        width: "30ch",
       },
     },
   },
@@ -171,6 +170,7 @@ export default function PrimarySearchAppBar() {
     (state: RootState) => state.theme.mode
   );
 
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -210,7 +210,7 @@ export default function PrimarySearchAppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
-              onChange={(e) => dispatch(setSearch(e.target.value))}
+              onChange={(e) => dispatch(searchCountries(e.target.value))}
               
             />
           </Search>
@@ -265,14 +265,3 @@ export default function PrimarySearchAppBar() {
     </Box>
   );
 }
-
-/* function Header() {
-  return (
-    <nav>
-      
-    </nav>
-  );
-}
-
-export default Header;
- */

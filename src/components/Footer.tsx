@@ -1,8 +1,11 @@
+import { AppBar } from '@mui/material'
 import React from 'react'
 
 function Footer() {
   return (
-    <div>Footer</div>
+    <AppBar position="static" color="primary" enableColorOnDark>
+    
+  </AppBar>
   )
 }
 

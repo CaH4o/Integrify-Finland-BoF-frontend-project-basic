@@ -1,7 +1,7 @@
 {
   "name": "bof-frontend-project-basic",
   "version": "0.1.0",
-  "homepage": "https://cah4o.github.io/",
+  "homepage": "https://cah4o.github.io/bof-frontend-project-basic",
   "private": true,  
   "dependencies": {
     "@emotion/react": "^11.10.4",

@@ -57,8 +57,8 @@ function App() {
             <SectionHeader />
             <Routes>
               <Route path="/">
-                <Route path="" element={<PageHome />} />
-                <Route path=":name" element={<PageCountry />} />
+                <Route path="/" element={<PageHome />} />
+                <Route path="/:name" element={<PageCountry />} />
               </Route>
             </Routes>
             <SectionFooter />

@@ -1,26 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { tCountry } from "../../types/tCountry";
-
-interface ICountriesReducer {
-  countries: tCountry[];
-  country: tCountry[];
-  backUpCountries: tCountry[];
-  loading: boolean;
-  error: boolean;
-  favorites: number;
-  visited: number;
-  sortDir: {
-    byName: "asc" | "desc";
-    byRegion: "asc" | "desc";
-    bySubregion: "asc" | "desc";
-    byCapital: "asc" | "desc";
-    byAria: "asc" | "desc";
-    byPopulation: "asc" | "desc";
-    byLanguages: "asc" | "desc";
-    byFavorite: "asc" | "desc";
-    byVisited: "asc" | "desc";
-  };
-}
+import { ICountriesReducer } from "../../types/ICountriesReducer";
 
 const initialState: ICountriesReducer = {
   countries: [],
@@ -39,7 +19,7 @@ const initialState: ICountriesReducer = {
     byPopulation: "asc",
     byLanguages: "asc",
     byFavorite: "asc",
-    byVisited: "asc"
+    byVisited: "asc",
   },
 };
 
@@ -47,9 +27,6 @@ const countriesSlicer = createSlice({
   name: "countries",
   initialState,
   reducers: {
-    resetCountries: function (state: ICountriesReducer) {
-      state.countries = state.backUpCountries.filter(() => true);
-    },
     addRemoveFavoriteCountry: function (
       state: ICountriesReducer,
       action: PayloadAction<string>
@@ -67,6 +44,11 @@ const countriesSlicer = createSlice({
       state.favorites = state.backUpCountries.filter(
         (country) => country.isFavorit
       ).length;
+      localStorage.setItem("countries", JSON.stringify(state.backUpCountries));
+      localStorage.setItem(
+        "counter",
+        JSON.stringify([state.favorites, state.visited])
+      );
     },
     addVisitedCountry: function (
       state: ICountriesReducer,
@@ -83,10 +65,16 @@ const countriesSlicer = createSlice({
           ++country.visited;
         }
       });
-      if (changeVisited)
+      if (changeVisited) {
         state.visited = state.backUpCountries.filter(
           (country) => country.visited > 0
         ).length;
+        localStorage.setItem(
+          "counter",
+          JSON.stringify([state.favorites, state.visited])
+        );
+      }
+      localStorage.setItem("countries", JSON.stringify(state.backUpCountries));
     },
     removeVisitedCountry: function (
       state: ICountriesReducer,
@@ -104,10 +92,16 @@ const countriesSlicer = createSlice({
           if (country.visited > 0) --country.visited;
         }
       });
-      if (changeVisited)
+      if (changeVisited) {
         state.visited = state.backUpCountries.filter(
           (country) => country.visited > 0
         ).length;
+        localStorage.setItem(
+          "counter",
+          JSON.stringify([state.favorites, state.visited])
+        );
+      }
+      localStorage.setItem("countries", JSON.stringify(state.backUpCountries));
     },
     searchCountries: function (
       state: ICountriesReducer,
@@ -258,41 +252,22 @@ const countriesSlicer = createSlice({
       }
       state.sortDir.byVisited = sortDir === "asc" ? "desc" : "asc";
     },
-    postCountries: (state: ICountriesReducer) => {
-      localStorage.setItem(
-        "favCountries",
-        JSON.stringify(
-          state.backUpCountries.filter((country) => {
-            return country.isFavorit;
-          })
-        )
-      );
-    },
-    getCountries: (state: ICountriesReducer) => {
-      const favCountries: tCountry[] = JSON.parse(
-        localStorage.getItem("favCountries")||""
-      );
-      if (favCountries) {
-        state.backUpCountries.forEach((country)=>{
-          favCountries.forEach((c)=>{
-            if(country.name.official === c.name.official) {
-              country = c;
-            }
-          })
-          
-        })        
-      }
-      
-    },
   },
   extraReducers: (build) => {
     build
       .addCase(
         fetchCountries.fulfilled,
         (state: ICountriesReducer, action: PayloadAction<tCountry[]>) => {
-          state.backUpCountries = action.payload;
+          state.backUpCountries = localStorage.getItem("countries")
+            ? JSON.parse(localStorage.getItem("countries")!)
+            : action.payload;
           state.countries = state.backUpCountries.filter(() => true);
           state.loading = false;
+          if (localStorage.getItem("counter")) {
+            [state.favorites, state.visited] = JSON.parse(
+              localStorage.getItem("counter")!
+            );
+          }
         }
       )
       .addCase(fetchCountries.pending, (state: ICountriesReducer) => {
@@ -352,7 +327,6 @@ export const fetchCountry = createAsyncThunk(
 
 const countriesReducer = countriesSlicer.reducer;
 export const {
-  resetCountries,
   searchCountries,
   sortCountriesByName,
   sortCountriesByRegion,
@@ -365,6 +339,6 @@ export const {
   sortCountriesByFavorite,
   removeVisitedCountry,
   addVisitedCountry,
-  sortCountriesByVisited
+  sortCountriesByVisited,
 } = countriesSlicer.actions;
 export default countriesReducer;

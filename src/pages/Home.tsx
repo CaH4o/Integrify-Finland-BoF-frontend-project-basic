@@ -13,15 +13,19 @@ import {
   TablePagination,
   Button,
   Box,
+  Container,
   TableSortLabel,
   Paper,
   LinearProgress,
   Stack,
+  IconButton,
+  Badge,
 } from "@mui/material";
 import TourIcon from "@mui/icons-material/Tour";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import LoyaltyIcon from "@mui/icons-material/Loyalty";
 
 import { tCountry } from "../types/tCountry";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
@@ -36,6 +40,9 @@ import {
   sortCountriesByLanguages,
   addRemoveFavoriteCountry,
   sortCountriesByFavorite,
+  sortCountriesByVisited,
+  addVisitedCountry,
+  removeVisitedCountry,
 } from "../redux/reducers/countries";
 
 function Home() {
@@ -71,18 +78,14 @@ function Home() {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
+        width: "auto",
+        margin: "0.5rem",
         justifyContent: "center",
-        alignItems: "center",
       }}
     >
       {!countriesList.length ? (
         <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-          <LinearProgress
-            sx={{ height: 10 }}
-            color="primary"
-          />
+          <LinearProgress sx={{ height: 10 }} color="primary" />
         </Stack>
       ) : (
         <TableContainer component={Paper}>
@@ -160,10 +163,10 @@ function Home() {
                     Languages
                   </TableSortLabel>
                 </TableCell>
-                <TableCell align="center" width="80px" colSpan={2}>
+                <TableCell align="center" width="40px" colSpan={2}>
                   Links
                 </TableCell>
-                <TableCell width="40px">
+                <TableCell width="20px">
                   <TableSortLabel
                     onClick={() => {
                       dispatch(sortCountriesByFavorite());
@@ -171,6 +174,16 @@ function Home() {
                     direction={sortDir.byFavorite}
                   >
                     Favorit
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell align="center" width="70px">
+                  <TableSortLabel
+                    onClick={() => {
+                      dispatch(sortCountriesByVisited());
+                    }}
+                    direction={sortDir.byVisited}
+                  >
+                    Visited
                   </TableSortLabel>
                 </TableCell>
               </TableRow>
@@ -237,6 +250,33 @@ function Home() {
                           <FavoriteBorderIcon />
                         )}
                       </Button>
+                    </TableCell>
+                    <TableCell >
+                      <Box display="flex" flexDirection="row">
+                      <Button
+                        onClick={() => {
+                          dispatch(addVisitedCountry(cntry.name.official));
+                        }}
+                      >
+                        <AddIcon />
+                      </Button>
+                      <IconButton
+                        size="large"
+                        aria-label="show 17 new notifications"
+                        color="inherit"
+                      >
+                        <Badge badgeContent={cntry.visited} color="info">
+                          <TourIcon />
+                        </Badge>
+                      </IconButton>
+                      <Button
+                        onClick={() => {
+                          dispatch(removeVisitedCountry(cntry.name.official));
+                        }}
+                      >
+                        <RemoveIcon />
+                      </Button>
+                      </Box>
                     </TableCell>
                   </TableRow>
                 ))}

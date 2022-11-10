@@ -7,6 +7,7 @@ import {
   CardMedia,
   Typography,
   Container,
+  Paper,
 } from "@mui/material";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import ExploreIcon from "@mui/icons-material/Explore";
@@ -36,10 +37,10 @@ function Country() {
       {!country ? (
         <h2>Loading</h2>
       ) : (
-        <Box sx={{ display: "flex", margin: "1rem" }}>
+        <Box sx={{ display: "flex", margin: "1rem", width: "auto"  }} component={Paper}>
           <CardMedia
             component="img"
-            sx={{ width: 400 }}
+            sx={{ width: 400, borderImage: "0.5rem secondary",  }}
             image={country.flags.png}
             alt={country.name.official}
           />

@@ -47,7 +47,13 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Box sx={{ bgcolor: "background.default", height: "100%" }}>
+          <Box
+            sx={{
+              bgcolor: "background.default",
+              height: "100%",
+              transition: "0.5s",
+            }}
+          >
             <SectionHeader />
             <Routes>
               <Route path="/">

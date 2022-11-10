@@ -5,7 +5,7 @@ function Footer() {
   return (
     <AppBar position="static" color="primary" enableColorOnDark>
     
-  </AppBar>
+    </AppBar>
   )
 }
 

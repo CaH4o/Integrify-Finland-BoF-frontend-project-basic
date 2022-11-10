@@ -34,5 +34,5 @@ export interface tCountry {
     svg: string;
   };
   isFavorit: boolean;
-  isVisited: boolean;
+  visited: number;
 }

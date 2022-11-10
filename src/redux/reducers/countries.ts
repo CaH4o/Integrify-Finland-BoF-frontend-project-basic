@@ -7,6 +7,8 @@ interface ICountriesReducer {
   backUpCountries: tCountry[];
   loading: boolean;
   error: boolean;
+  favorites: number;
+  visited: number;
   sortDir: {
     byName: "asc" | "desc";
     byRegion: "asc" | "desc";
@@ -16,6 +18,7 @@ interface ICountriesReducer {
     byPopulation: "asc" | "desc";
     byLanguages: "asc" | "desc";
     byFavorite: "asc" | "desc";
+    byVisited: "asc" | "desc";
   };
 }
 
@@ -25,6 +28,8 @@ const initialState: ICountriesReducer = {
   backUpCountries: [],
   loading: false,
   error: false,
+  favorites: 0,
+  visited: 0,
   sortDir: {
     byName: "asc",
     byRegion: "asc",
@@ -34,6 +39,7 @@ const initialState: ICountriesReducer = {
     byPopulation: "asc",
     byLanguages: "asc",
     byFavorite: "asc",
+    byVisited: "asc"
   },
 };
 
@@ -58,6 +64,50 @@ const countriesSlicer = createSlice({
           country.isFavorit = !country.isFavorit;
         }
       });
+      state.favorites = state.backUpCountries.filter(
+        (country) => country.isFavorit
+      ).length;
+    },
+    addVisitedCountry: function (
+      state: ICountriesReducer,
+      action: PayloadAction<string>
+    ) {
+      let changeVisited: boolean = false;
+      state.backUpCountries.forEach((country) => {
+        if (country.name.official === action.payload) {
+          if (!country.visited++) changeVisited = true;
+        }
+      });
+      state.countries.forEach((country) => {
+        if (country.name.official === action.payload) {
+          ++country.visited;
+        }
+      });
+      if (changeVisited)
+        state.visited = state.backUpCountries.filter(
+          (country) => country.visited > 0
+        ).length;
+    },
+    removeVisitedCountry: function (
+      state: ICountriesReducer,
+      action: PayloadAction<string>
+    ) {
+      let changeVisited: boolean = false;
+      state.backUpCountries.forEach((country) => {
+        if (country.name.official === action.payload) {
+          if (!--country.visited) changeVisited = true;
+          if (country.visited < 0) country.visited = 0;
+        }
+      });
+      state.countries.forEach((country) => {
+        if (country.name.official === action.payload) {
+          if (country.visited > 0) --country.visited;
+        }
+      });
+      if (changeVisited)
+        state.visited = state.backUpCountries.filter(
+          (country) => country.visited > 0
+        ).length;
     },
     searchCountries: function (
       state: ICountriesReducer,
@@ -199,6 +249,15 @@ const countriesSlicer = createSlice({
       }
       state.sortDir.byFavorite = sortDir === "asc" ? "desc" : "asc";
     },
+    sortCountriesByVisited: function (state: ICountriesReducer) {
+      const sortDir = state.sortDir.byVisited;
+      if (sortDir === "desc") {
+        state.countries.sort((a, b) => a.visited - b.visited);
+      } else {
+        state.countries.sort((a, b) => b.visited - a.visited);
+      }
+      state.sortDir.byVisited = sortDir === "asc" ? "desc" : "asc";
+    },
     postCountries: (state: ICountriesReducer) => {
       localStorage.setItem(
         "favCountries",
@@ -209,18 +268,22 @@ const countriesSlicer = createSlice({
         )
       );
     },
-    /*   getCountries: (state: tCountry[]) => {
+    getCountries: (state: ICountriesReducer) => {
       const favCountries: tCountry[] = JSON.parse(
         localStorage.getItem("favCountries")||""
       );
       if (favCountries) {
-        favCountries.forEach((FavCountry:tCountry)=>{
-          state.splice( , 1 )
-        })
-        
+        state.backUpCountries.forEach((country)=>{
+          favCountries.forEach((c)=>{
+            if(country.name.official === c.name.official) {
+              country = c;
+            }
+          })
+          
+        })        
       }
       
-    }, */
+    },
   },
   extraReducers: (build) => {
     build
@@ -267,7 +330,7 @@ export const fetchCountries = createAsyncThunk(
       .then((data) => data.json())
       .then((countries: tCountry[]) => {
         return countries.map((country: tCountry) => {
-          return { ...country, isFavorit: false, isVisited: false };
+          return { ...country, isFavorit: false, visited: 0 };
         });
       });
   }
@@ -281,7 +344,7 @@ export const fetchCountry = createAsyncThunk(
       .then((data) => data.json())
       .then((countries: tCountry[]) => {
         return countries.map((country: tCountry) => {
-          return { ...country, isFavorit: false, isVisited: false };
+          return { ...country, isFavorit: false, visited: 0 };
         });
       });
   }
@@ -300,5 +363,8 @@ export const {
   sortCountriesByLanguages,
   addRemoveFavoriteCountry,
   sortCountriesByFavorite,
+  removeVisitedCountry,
+  addVisitedCountry,
+  sortCountriesByVisited
 } = countriesSlicer.actions;
 export default countriesReducer;

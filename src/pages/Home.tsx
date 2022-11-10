@@ -13,12 +13,10 @@ import {
   TablePagination,
   Button,
   Box,
-  Container,
   TableSortLabel,
   Paper,
   LinearProgress,
   Stack,
-  IconButton,
   Badge,
 } from "@mui/material";
 import TourIcon from "@mui/icons-material/Tour";
@@ -49,11 +47,19 @@ function Home() {
   const countriesList = useAppSelector((state) => state.countries.countries);
   const sortDir = useAppSelector((state) => state.countries.sortDir);
   const dispatch = useAppDispatch();
+
   useEffect(
     function () {
       dispatch(fetchCountries());
     },
     [dispatch]
+  );
+
+  useEffect(
+    function () {
+      if (page) setPage(0);
+    },
+    [countriesList]
   );
 
   const [page, setPage] = React.useState<number>(0);
@@ -251,31 +257,27 @@ function Home() {
                         )}
                       </Button>
                     </TableCell>
-                    <TableCell >
+                    <TableCell>
                       <Box display="flex" flexDirection="row">
-                      <Button
-                        onClick={() => {
-                          dispatch(addVisitedCountry(cntry.name.official));
-                        }}
-                      >
-                        <AddIcon />
-                      </Button>
-                      <IconButton
-                        size="large"
-                        aria-label="show 17 new notifications"
-                        color="inherit"
-                      >
-                        <Badge badgeContent={cntry.visited} color="info">
-                          <TourIcon />
-                        </Badge>
-                      </IconButton>
-                      <Button
-                        onClick={() => {
-                          dispatch(removeVisitedCountry(cntry.name.official));
-                        }}
-                      >
-                        <RemoveIcon />
-                      </Button>
+                        <Button
+                          onClick={() => {
+                            dispatch(addVisitedCountry(cntry.name.official));
+                          }}
+                        >
+                          <AddIcon />
+                        </Button>
+                        
+                          <Badge badgeContent={cntry.visited} color="info">
+                            <TourIcon />
+                          </Badge>
+                      
+                        <Button
+                          onClick={() => {
+                            dispatch(removeVisitedCountry(cntry.name.official));
+                          }}
+                        >
+                          <RemoveIcon />
+                        </Button>
                       </Box>
                     </TableCell>
                   </TableRow>

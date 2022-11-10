@@ -2,19 +2,20 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import {
   Box,
-  Card,
   CardContent,
   CardMedia,
   Typography,
-  Container,
   Paper,
+  Button,
 } from "@mui/material";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import ExploreIcon from "@mui/icons-material/Explore";
 
 import { tCountry } from "../types/tCountry";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import { fetchCountry } from "../redux/reducers/countries";
+import {
+  fetchCountry,
+} from "../redux/reducers/countries";
 
 function Country() {
   const params = useParams();
@@ -37,14 +38,17 @@ function Country() {
       {!country ? (
         <h2>Loading</h2>
       ) : (
-        <Box sx={{ display: "flex", margin: "1rem", width: "auto"  }} component={Paper}>
+        <Box
+          sx={{ display: "flex", margin: "1rem", width: "auto" }}
+          component={Paper}
+        >
           <CardMedia
             component="img"
-            sx={{ width: 400, borderImage: "0.5rem secondary",  }}
+            sx={{ width: 400, borderImage: "0.5rem secondary" }}
             image={country.flags.png}
             alt={country.name.official}
           />
-          <CardContent sx={{ flex: "1 0 auto", minWidth: "400px" }}>
+          <CardContent sx={{ flex: "1 0 auto", width: "350px" }}>
             <Typography
               component="div"
               variant="h5"
@@ -52,102 +56,129 @@ function Country() {
               sx={{ margin: "0 0 1em" }}
             >
               {country.name.official}
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Typography
-                  color="text.primary"
-                  variant="subtitle1"
-                  component="div"
-                >
-                  Rigion: {country.region}
-                </Typography>
-                <Typography
-                  color="text.primary"
-                  variant="subtitle1"
-                  component="div"
-                >
-                  {country.subregion && `Subregion: ${country.subregion}`}
-                </Typography>
-                <Typography
-                  color="text.primary"
-                  variant="subtitle1"
-                  component="div"
-                >
-                  {country.capital &&
-                    `Capital: ${new Intl.ListFormat("en").format(
-                      Object.values(country.capital)
-                    )}`}
-                </Typography>
-              </Box>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Typography
-                  color="text.primary"
-                  variant="subtitle1"
-                  component="div"
-                >
-                  Area: {country.area} km<sup>2</sup>
-                </Typography>
-                <Typography
-                  color="text.primary"
-                  variant="subtitle1"
-                  component="div"
-                >
-                  Population: {country.population}
-                </Typography>
-                <Typography
-                  color="text.primary"
-                  variant="subtitle1"
-                  component="div"
-                >
-                  Timezones: {new Intl.ListFormat("en").format(
-                      Object.values(country.timezones)
-                    )}
-                </Typography>
-              </Box>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  component="div"
-                >
-                  {country.languages &&
-                    `Languages: ${new Intl.ListFormat("en").format(
-                      Object.values(country.languages)
-                    )}`}
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  component="div"
-                >
-               {/*    {country.currencies &&
-                    `Currencies: ${new Intl.ListFormat("en").format(
-                      Object.values(country.currencies.name)
-                    )}`} */}
-                </Typography>
-              </Box>
-            </Box>
-          </CardContent>
-        </Box>
-
-        /*  
-
-               
-              
-                
-              </p>
-            </div>
-            <div>
               <Button href={country.maps.googleMaps} target="_blanck">
                 <ExploreIcon />
               </Button>
               <Button href={country.maps.openStreetMaps} target="_blanck">
                 <TravelExploreIcon />
               </Button>
-            </div>
-          </li>
-        </ul> */
+            </Typography>
+            <Box sx={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "300px",
+                }}
+              >
+                <Typography
+                  color="text.primary"
+                  variant="subtitle1"
+                  component="div"
+                >
+                  <b>Rigion: </b>
+                  {country.region}
+                </Typography>
+                <Typography
+                  color="text.primary"
+                  variant="subtitle1"
+                  component="div"
+                >
+                  {country.subregion && (
+                    <>
+                      <b>Subregion: </b> {country.subregion}
+                    </>
+                  )}
+                </Typography>
+                <Typography
+                  color="text.primary"
+                  variant="subtitle1"
+                  component="div"
+                >
+                  {country.capital && (
+                    <>
+                      <b>Capital: </b>
+                      {new Intl.ListFormat("en").format(
+                        Object.values(country.capital)
+                      )}
+                    </>
+                  )}
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "300px",
+                }}
+              >
+                <Typography
+                  color="text.primary"
+                  variant="subtitle1"
+                  component="div"
+                >
+                  <b>Area: </b> {country.area} km<sup>2</sup>
+                </Typography>
+                <Typography
+                  color="text.primary"
+                  variant="subtitle1"
+                  component="div"
+                >
+                  <b>Population: </b>
+                  {country.population}
+                </Typography>
+                <Typography
+                  color="text.primary"
+                  variant="subtitle1"
+                  component="div"
+                >
+                  <b>Timezones: </b>
+                  {new Intl.ListFormat("en").format(
+                    Object.values(country.timezones)
+                  )}
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "300px",
+                }}
+              >
+                <Typography
+                  variant="subtitle1"
+                  color="text.secondary"
+                  component="div"
+                >
+                  {country.languages && (
+                    <>
+                      <b>Languages: </b>
+                      {new Intl.ListFormat("en").format(
+                        Object.values(country.languages)
+                      )}
+                    </>
+                  )}
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  color="text.secondary"
+                  component="div"
+                >
+                  {country.currencies && (
+                    <>
+                      <b>Currencies: </b>
+                      {new Intl.ListFormat("en").format(
+                        Object.values(country.currencies).map((obj) => {
+                          return obj.name;
+                        })
+                      )}
+                    </>
+                  )}
+                </Typography>
+              </Box>
+            </Box>
+          </CardContent>
+        </Box>
       )}
     </div>
   );

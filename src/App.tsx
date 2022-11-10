@@ -50,7 +50,7 @@ function App() {
           <Box
             sx={{
               bgcolor: "background.default",
-              height: "100%",
+              height: "100vh;",
               transition: "0.5s",
             }}
           >

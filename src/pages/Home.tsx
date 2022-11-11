@@ -27,8 +27,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import { tCountry } from "../types/tCountry";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { fetchCountries } from "../functions/asyncThunk";
 import {
-  fetchCountries,
   sortCountriesByName,
   sortCountriesByRegion,
   sortCountriesByCapital,

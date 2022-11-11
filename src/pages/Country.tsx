@@ -13,9 +13,7 @@ import ExploreIcon from "@mui/icons-material/Explore";
 
 import { tCountry } from "../types/tCountry";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import {
-  fetchCountry,
-} from "../redux/reducers/countries";
+import { fetchCountry } from "../functions/asyncThunk";
 
 function Country() {
   const params = useParams();

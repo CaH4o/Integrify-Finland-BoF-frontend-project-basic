@@ -79,7 +79,7 @@ export default function Header() {
     <Box sx={{ flexGrow: 1, width: "100%" }}>
       <AppBar position="static">
         <Toolbar>
-          <Link to="" style={{ color: "inherit", textDecoration: "inherit" }}>
+          <Link to="bof-frontend-project-basic/" style={{ color: "inherit", textDecoration: "inherit" }}>
             <IconButton
               size="large"
               edge="start"

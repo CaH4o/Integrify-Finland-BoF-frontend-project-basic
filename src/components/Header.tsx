@@ -1,13 +1,15 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  InputBase,
+  Badge,
+  PaletteMode,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import TourIcon from "@mui/icons-material/Tour";
@@ -18,7 +20,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { RootState } from "../redux/store";
 import { toggleMode } from "../redux/reducers/themeMode";
-import { PaletteMode } from "@mui/material";
 import { searchCountries } from "../redux/reducers/countries";
 
 const Search = styled("div")(({ theme }) => ({
@@ -62,8 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-
-export default function Header() {
+function Header() {
   const dispatch = useAppDispatch();
   const mode: PaletteMode = useAppSelector(
     (state: RootState) => state.theme.mode
@@ -79,7 +79,10 @@ export default function Header() {
     <Box sx={{ flexGrow: 1, width: "100%" }}>
       <AppBar position="static">
         <Toolbar>
-          <Link to="bof-frontend-project-basic/" style={{ color: "inherit", textDecoration: "inherit" }}>
+          <Link
+            to="/bof-frontend-project-basic"
+            style={{ color: "inherit", textDecoration: "inherit" }}
+          >
             <IconButton
               size="large"
               edge="start"
@@ -91,14 +94,15 @@ export default function Header() {
             </IconButton>
           </Link>
           <IconButton
-          edge="start"
-          color="inherit"
-          sx={{ mr: 2 }}
-          onClick={() => {
-            dispatch(toggleMode());}}
-        >
-          {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
-        </IconButton>
+            edge="start"
+            color="inherit"
+            sx={{ mr: 2 }}
+            onClick={() => {
+              dispatch(toggleMode());
+            }}
+          >
+            {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+          </IconButton>
           <Typography
             variant="h6"
             noWrap
@@ -107,7 +111,7 @@ export default function Header() {
           >
             Countries
           </Typography>
-          <Search >
+          <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -115,11 +119,10 @@ export default function Header() {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
               onChange={(e) => dispatch(searchCountries(e.target.value))}
-              
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-           <Box sx={{ display: { xs: "flex" } }}>
+          <Box sx={{ display: { xs: "flex" } }}>
             <IconButton
               size="large"
               aria-label={`show ${favorites} favorites`}
@@ -138,9 +141,11 @@ export default function Header() {
                 <TourIcon />
               </Badge>
             </IconButton>
-          </Box> 
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>
   );
 }
+
+export default Header;

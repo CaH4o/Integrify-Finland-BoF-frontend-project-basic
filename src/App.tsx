@@ -1,13 +1,11 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { PaletteMode, Box } from "@mui/material";
 
 import "./styles/App.css";
-import SectionHeader from "./components/Header";
 import PageHome from "./pages/Home";
 import PageCountry from "./pages/Country";
-import SectionFooter from "./components/Footer";
+import PageNotFound from "./pages/NotFound";
 import { useAppSelector } from "./hooks/reduxHooks";
 import { RootState } from "./redux/store";
 
@@ -54,14 +52,13 @@ function App() {
               transition: "0.5s",
             }}
           >
-            <SectionHeader />
             <Routes>
-              <Route path="bof-frontend-project-basic/">
+              <Route path="/bof-frontend-project-basic">
                 <Route path="" element={<PageHome />} />
                 <Route path=":name" element={<PageCountry />} />
               </Route>
+              <Route path="/*" element={<PageNotFound />} />
             </Routes>
-            <SectionFooter />
           </Box>
         </BrowserRouter>
       </ThemeProvider>

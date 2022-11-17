@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   AppBar,
   Box,
@@ -10,8 +11,6 @@ import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-
-import React, { useState } from "react";
 
 function Footer() {
   const [email, setEmail] = useState<string>("");

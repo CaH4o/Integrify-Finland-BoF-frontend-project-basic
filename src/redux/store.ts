@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { tCountry } from "../types/tCountry";
 
 import countriesReducer from "./reducers/countries";
 import themeModeReducer from "./reducers/themeMode";
+import { tCountry } from "../types/tCountry";
+import { initSortDir, initSelect } from "../functions/initials";
 
 const backUpCountries: tCountry[] = JSON.parse(
   localStorage.getItem("countries") || "[]"
@@ -28,17 +29,8 @@ const store = configureStore({
       error: false,
       favorites,
       visited,
-      sortDir: {
-        byName: "asc",
-        byRegion: "asc",
-        bySubregion: "asc",
-        byCapital: "asc",
-        byAria: "asc",
-        byPopulation: "asc",
-        byLanguages: "asc",
-        byFavorite: "asc",
-        byVisited: "asc",
-      },
+      sortDir: initSortDir(),
+      select: initSelect(),
     },
   },
 });

@@ -20,7 +20,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { RootState } from "../redux/store";
 import { toggleMode } from "../redux/reducers/themeMode";
-import { searchCountries } from "../redux/reducers/countries";
+import {
+  searchCountries,
+  selectCountriesByVisited,
+  selectCountriesByFavorites,
+} from "../redux/reducers/countries";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -127,6 +131,7 @@ function Header() {
               size="large"
               aria-label={`show ${favorites} favorites`}
               color="inherit"
+              onClick={(e) => dispatch(selectCountriesByFavorites())}
             >
               <Badge badgeContent={favorites} color="info">
                 <FavoriteIcon />
@@ -136,6 +141,7 @@ function Header() {
               size="large"
               aria-label={`show ${visited} visited`}
               color="inherit"
+              onClick={(e) => dispatch(selectCountriesByVisited())}
             >
               <Badge badgeContent={visited} color="info">
                 <TourIcon />

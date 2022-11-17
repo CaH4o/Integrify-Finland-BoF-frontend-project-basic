@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { PaletteMode, Box } from "@mui/material";
 
-import "./styles/App.css";
 import PageHome from "./pages/Home";
 import PageCountry from "./pages/Country";
 import PageNotFound from "./pages/NotFound";

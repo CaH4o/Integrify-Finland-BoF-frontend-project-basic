@@ -13,14 +13,15 @@ import {
   Stack,
 } from "@mui/material";
 
-import Home_TableHeader from "../components/Home_TableHeader";
-import Home_TableBodyRow from "../components/Home_TableBodyRow";
+import HomeTableHeader from "../components/Home_TableHeader";
+import HomeTableBodyRow from "../components/Home_TableBodyRow";
 import { tCountry } from "../types/tCountry";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { fetchCountries } from "../functions/asyncThunk";
 
 function Home_Table() {
   const countriesList = useAppSelector((state) => state.countries.countries);
+  const countries = useAppSelector((state) => state.countries.backUpCountries);
   const dispatch = useAppDispatch();
   const [page, setPage] = React.useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(10);
@@ -42,7 +43,7 @@ function Home_Table() {
   };
 
   useEffect(function () {
-    dispatch(fetchCountries());
+    if (countries.length !== 250) dispatch(fetchCountries());
   }, []);
 
   useEffect(
@@ -67,12 +68,15 @@ function Home_Table() {
       ) : (
         <TableContainer component={Paper}>
           <Table size="small" aria-label="a dense table">
-            <Home_TableHeader />
+            <HomeTableHeader />
             <TableBody>
               {countriesList
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((country: tCountry) => (
-                 <Home_TableBodyRow country={country} />
+                  <HomeTableBodyRow
+                    key={country.name.official}
+                    country={country}
+                  />
                 ))}
               {emptyRows > 0 && (
                 <TableRow

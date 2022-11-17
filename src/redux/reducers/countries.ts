@@ -46,11 +46,6 @@ const countriesSlicer = createSlice({
       state.favorites = state.backUpCountries.filter(
         (country) => country.isFavorit
       ).length;
-      localStorage.setItem("countries", JSON.stringify(state.backUpCountries));
-      localStorage.setItem(
-        "counter",
-        JSON.stringify([state.favorites, state.visited])
-      );
     },
     addVisitedCountry: function (
       state: ICountriesReducer,
@@ -71,12 +66,8 @@ const countriesSlicer = createSlice({
         state.visited = state.backUpCountries.filter(
           (country) => country.visited > 0
         ).length;
-        localStorage.setItem(
-          "counter",
-          JSON.stringify([state.favorites, state.visited])
-        );
       }
-      localStorage.setItem("countries", JSON.stringify(state.backUpCountries));
+
     },
     removeVisitedCountry: function (
       state: ICountriesReducer,
@@ -98,12 +89,7 @@ const countriesSlicer = createSlice({
         state.visited = state.backUpCountries.filter(
           (country) => country.visited > 0
         ).length;
-        localStorage.setItem(
-          "counter",
-          JSON.stringify([state.favorites, state.visited])
-        );
       }
-      localStorage.setItem("countries", JSON.stringify(state.backUpCountries));
     },
     searchCountries: function (
       state: ICountriesReducer,
@@ -260,16 +246,9 @@ const countriesSlicer = createSlice({
       .addCase(
         fetchCountries.fulfilled,
         (state: ICountriesReducer, action: PayloadAction<tCountry[]>) => {
-          state.backUpCountries = localStorage.getItem("countries")
-            ? JSON.parse(localStorage.getItem("countries")!)
-            : action.payload;
+          state.backUpCountries = action.payload;
           state.countries = state.backUpCountries.filter(() => true);
           state.loading = false;
-          if (localStorage.getItem("counter")) {
-            [state.favorites, state.visited] = JSON.parse(
-              localStorage.getItem("counter")!
-            );
-          }
         }
       )
       .addCase(fetchCountries.pending, (state: ICountriesReducer) => {

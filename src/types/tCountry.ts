@@ -1,26 +1,24 @@
+export type tCurrency = {
+  [key: string]: {
+    name: string;
+    symbol: string;
+  };
+};
+
+export type tLanguage = {
+  [index: string]: string;
+};
+
 export interface tCountry {
   name: {
     common: string;
     official: string;
-    nativeName?: {
-      [key: string]: {
-        official: string;
-        common: string;
-      };
-    };
   };
-  currencies?: {
-    [key: string]: {
-      name: string;
-      symbol: string;
-    };
-  };
+  currencies?: tCurrency;
   capital?: string[];
   region: string;
   subregion?: string;
-  languages?: {
-    [index: string]: string;
-  };
+  languages?: tLanguage;
   area: number;
   maps: {
     googleMaps: string;

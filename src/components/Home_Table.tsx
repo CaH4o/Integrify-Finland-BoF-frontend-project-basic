@@ -44,7 +44,7 @@ function Home_Table() {
 
   useEffect(function () {
     if (countries.length !== 250) dispatch(fetchCountries());
-  }, []);
+  }, [countries.length]);
 
   useEffect(
     function () {

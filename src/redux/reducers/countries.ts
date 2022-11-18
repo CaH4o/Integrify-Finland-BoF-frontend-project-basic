@@ -243,6 +243,8 @@ const countriesSlicer = createSlice({
           state.countries = state.backUpCountries.filter(() => true);
         }
         state.select = { ...initSelect(), byFavorites };
+      } else {
+        state.countries = state.backUpCountries.filter(() => true);
       }
     },
     selectCountriesByVisited: function (state: ICountriesReducer) {
@@ -256,6 +258,8 @@ const countriesSlicer = createSlice({
           state.countries = state.backUpCountries.filter(() => true);
         }
         state.select = { ...initSelect(), byVisited };
+      } else {
+        state.countries = state.backUpCountries.filter(() => true);
       }
     },
   },

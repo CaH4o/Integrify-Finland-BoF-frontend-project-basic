@@ -15,6 +15,7 @@ import {
   removeVisitedCountry,
 } from "../redux/reducers/countries";
 import { useAppDispatch } from "../hooks/reduxHooks";
+import { showLanguages } from "../functions/shows";
 
 function Home_TableBodyRow({ country }: { country: tCountry }) {
   const dispatch = useAppDispatch();
@@ -46,8 +47,7 @@ function Home_TableBodyRow({ country }: { country: tCountry }) {
       </TableCell>
       <TableCell>{country.population.toLocaleString("en")}</TableCell>
       <TableCell>
-        {country.languages &&
-          new Intl.ListFormat("en").format(Object.values(country.languages))}
+        {country.languages && showLanguages(country.languages)}
       </TableCell>
       <TableCell>
         <Button href={country.maps.googleMaps} target="_blanck">

@@ -14,6 +14,7 @@ import ExploreIcon from "@mui/icons-material/Explore";
 import { tCountry } from "../types/tCountry";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { fetchCountry } from "../functions/asyncThunk";
+import { showLanguages, showCurrencies } from "../functions/shows";
 
 function Country_Body() {
   const params = useParams();
@@ -151,9 +152,7 @@ function Country_Body() {
                   {country.languages && (
                     <>
                       <b>Languages: </b>
-                      {new Intl.ListFormat("en").format(
-                        Object.values(country.languages)
-                      )}
+                      {showLanguages(country.languages)}
                     </>
                   )}
                 </Typography>
@@ -165,11 +164,7 @@ function Country_Body() {
                   {country.currencies && (
                     <>
                       <b>Currencies: </b>
-                      {new Intl.ListFormat("en").format(
-                        Object.values(country.currencies).map((obj) => {
-                          return obj.name;
-                        })
-                      )}
+                      {showCurrencies(country.currencies)}
                     </>
                   )}
                 </Typography>

@@ -2,10 +2,10 @@ import { PaletteMode } from "@mui/material";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface themeMode {
-  mode: PaletteMode
+  mode: PaletteMode;
 }
 
-const initialState = {mode: "light"} as themeMode;
+const initialState = { mode: "light" } as themeMode;
 
 const themeModeSlicer = createSlice({
   name: "themeMode",

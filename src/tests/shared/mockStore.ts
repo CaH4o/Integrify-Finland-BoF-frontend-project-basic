@@ -10,4 +10,6 @@ export default function createStore() {
       themeModeReducer,
     },
   });
+
+  return store;
 }

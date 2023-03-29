@@ -51,7 +51,9 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.21.0",
     "@redux-devtools/core": "^3.13.1",
-    "gh-pages": "^4.0.0"
+    "gh-pages": "^4.0.0",
+    "ts-jest": "^29.0.5"
   }
 }

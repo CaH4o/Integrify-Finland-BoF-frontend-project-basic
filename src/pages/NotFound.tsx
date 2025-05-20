@@ -11,7 +11,7 @@ function NotFound() {
         <code>{location.pathname}</code>
         <b>" Not found!</b> 
       </p>
-      <Link to="/bof-frontend-project-basic">Click me to go Home page</Link>
+      <Link to="/Integrify-Finland-BoF-frontend-project-basic">Click me to go Home page</Link>
     </Box>
   );
 }

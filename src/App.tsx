@@ -54,7 +54,7 @@ function App() {
             }}
           >
             <Routes>
-              <Route path="/bof-frontend-project-basic">
+              <Route path="/Integrify-Finland-BoF-frontend-project-basic">
                 <Route path="" element={<PageHome />} />
                 <Route path=":name" element={<PageCountry />} />
               </Route>

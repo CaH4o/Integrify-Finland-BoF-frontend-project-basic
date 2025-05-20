@@ -84,7 +84,7 @@ function Header() {
       <AppBar position="static">
         <Toolbar>
           <Link
-            to="/bof-frontend-project-basic"
+            to="/Integrify-Finland-BoF-frontend-project-basic"
             style={{ color: "inherit", textDecoration: "inherit" }}
           >
             <IconButton

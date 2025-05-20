@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useParams } from "react-router";
+import { useEffect } from "react"
+import { useParams } from "react-router"
 import {
   Box,
   CardContent,
@@ -7,33 +7,33 @@ import {
   Typography,
   Paper,
   Button,
-} from "@mui/material";
-import TravelExploreIcon from "@mui/icons-material/TravelExplore";
-import ExploreIcon from "@mui/icons-material/Explore";
+} from "@mui/material"
+import TravelExploreIcon from "@mui/icons-material/TravelExplore"
+import ExploreIcon from "@mui/icons-material/Explore"
 
-import { tCountry } from "../types/tCountry";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import { fetchCountry } from "../functions/asyncThunk";
-import { showLanguages, showCurrencies } from "../functions/shows";
+import { tCountry } from "../types/tCountry"
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
+import { fetchCountry } from "../functions/asyncThunk"
+import { showLanguages, showCurrencies } from "../functions/shows"
 
 function Country_Body() {
-  const params = useParams();
-  const dispatch = useAppDispatch();
+  const params = useParams()
+  const dispatch = useAppDispatch()
   const country: tCountry = useAppSelector(
     (state) => state.countries.country[0]
-  );
+  )
 
   useEffect(
     function () {
       if (params.name) {
-        dispatch(fetchCountry(params.name));
+        dispatch(fetchCountry(params.name))
       }
     },
     [params.name]
-  );
+  )
 
   return (
-    <div>
+    <Box sx={{ height: 800 }}>
       {!country ? (
         <h2>Loading</h2>
       ) : (
@@ -173,8 +173,8 @@ function Country_Body() {
           </CardContent>
         </Box>
       )}
-    </div>
-  );
+    </Box>
+  )
 }
 
-export default Country_Body;
+export default Country_Body

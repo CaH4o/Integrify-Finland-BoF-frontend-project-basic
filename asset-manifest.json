@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/bof-frontend-project-basic/static/css/main.e6c13ad2.css",
-    "main.js": "/bof-frontend-project-basic/static/js/main.2f7edc11.js",
-    "static/js/787.d925fb07.chunk.js": "/bof-frontend-project-basic/static/js/787.d925fb07.chunk.js",
-    "index.html": "/bof-frontend-project-basic/index.html",
-    "main.e6c13ad2.css.map": "/bof-frontend-project-basic/static/css/main.e6c13ad2.css.map",
-    "main.2f7edc11.js.map": "/bof-frontend-project-basic/static/js/main.2f7edc11.js.map",
-    "787.d925fb07.chunk.js.map": "/bof-frontend-project-basic/static/js/787.d925fb07.chunk.js.map"
+    "main.css": "/Integrify-Finland-BoF-frontend-project-basic/static/css/main.e6c13ad2.css",
+    "main.js": "/Integrify-Finland-BoF-frontend-project-basic/static/js/main.8f4139ee.js",
+    "static/js/787.d925fb07.chunk.js": "/Integrify-Finland-BoF-frontend-project-basic/static/js/787.d925fb07.chunk.js",
+    "index.html": "/Integrify-Finland-BoF-frontend-project-basic/index.html",
+    "main.e6c13ad2.css.map": "/Integrify-Finland-BoF-frontend-project-basic/static/css/main.e6c13ad2.css.map",
+    "main.8f4139ee.js.map": "/Integrify-Finland-BoF-frontend-project-basic/static/js/main.8f4139ee.js.map",
+    "787.d925fb07.chunk.js.map": "/Integrify-Finland-BoF-frontend-project-basic/static/js/787.d925fb07.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.2f7edc11.js"
+    "static/js/main.8f4139ee.js"
   ]
 }

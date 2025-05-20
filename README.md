@@ -1,8 +1,47 @@
-# Frontend React Project
+# Visited Сountries App 🌍
 
-This is your final project for the frontend module
+## Name of the project
 
-## Instructions
+**The basic final project for the frontend module:** Visited Сountries App
+
+## Demo
+
+[Click to view the live demo](https://cah4o.github.io/Integrify-Finland-BoF-frontend-project-basic/)
+
+## Tech Stack
+
+- **HTML** and **CSS**
+- **React** with **TypeScript**
+- **Redux** (with Async Thunk)
+- **React Router**
+- **Material UI**
+- **REST API**
+- **LocalStorage**
+
+## Description
+
+The Visited Countries App enables users to:
+
+- Browse a full list of countries fetched from a REST API
+- Mark countries as _visited_ or _favorites_
+- Filter countries by **language**, **continent**, or **region**
+- Search and sort country lists
+- View details such as currency, time zone, and population
+- Toggle between **light and dark** themes
+- Navigate through pages using **React Router**
+
+All state management is handled with Redux and enhanced by asynchronous Thunks for API calls. The application also stores user preferences in localStorage to ensure data persistence.
+
+## 💡 Learning Outcomes
+
+By building this project, I:
+
+- Strengthened my ability to work with **React** and **Redux**
+- Learned how to integrate and manage data from a **REST API** using **extra reducers** and **async Thunk**
+- Applied **React Router** for routing and prop management
+- Gained practical experience creating responsive interfaces with **Material UI**
+
+## Instructions (by the Academy)
 
 ### General
 
@@ -13,7 +52,6 @@ You need to install the css library yourself.
 ### Step 1
 
 - Fetch all the countries and return the data from [countries APIs](https://restcountries.com/). Display the data on the screen
-
 - Given a country name as argument, returns the data about that country from [countries APIs](https://restcountries.com/).
 
 ### Step 2

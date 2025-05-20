@@ -1,17 +1,17 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { PaletteMode, Box } from "@mui/material";
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { ThemeProvider, createTheme } from "@mui/material/styles"
+import { PaletteMode, Box } from "@mui/material"
 
-import PageHome from "./pages/Home";
-import PageCountry from "./pages/Country";
-import PageNotFound from "./pages/NotFound";
-import { useAppSelector } from "./hooks/reduxHooks";
-import { RootState } from "./redux/store";
+import PageHome from "./pages/Home"
+import PageCountry from "./pages/Country"
+import PageNotFound from "./pages/NotFound"
+import { useAppSelector } from "./hooks/reduxHooks"
+import { RootState } from "./redux/store"
 
 function App() {
   const mode: PaletteMode = useAppSelector(
     (state: RootState) => state.theme.mode
-  );
+  )
 
   const theme = createTheme({
     palette: {
@@ -38,7 +38,7 @@ function App() {
             background: { default: "#000" },
           }),
     },
-  });
+  })
 
   return (
     <div className="App">
@@ -48,6 +48,8 @@ function App() {
             sx={{
               bgcolor: "background.default",
               height: "100vh;",
+              display: "flex",
+              flexDirection: "column",
               transition: "0.5s",
             }}
           >
@@ -62,7 +64,7 @@ function App() {
         </BrowserRouter>
       </ThemeProvider>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

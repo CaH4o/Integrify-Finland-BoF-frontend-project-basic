@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from "react"
 import {
   Table,
   TableBody,
@@ -11,47 +11,50 @@ import {
   Paper,
   LinearProgress,
   Stack,
-} from "@mui/material";
+} from "@mui/material"
 
-import HomeTableHeader from "../components/Home_TableHeader";
-import HomeTableBodyRow from "../components/Home_TableBodyRow";
-import { tCountry } from "../types/tCountry";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import { fetchCountries } from "../functions/asyncThunk";
+import HomeTableHeader from "../components/Home_TableHeader"
+import HomeTableBodyRow from "../components/Home_TableBodyRow"
+import { tCountry } from "../types/tCountry"
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
+import { fetchCountries } from "../functions/asyncThunk"
 
 function Home_Table() {
-  const countriesList = useAppSelector((state) => state.countries.countries);
-  const countries = useAppSelector((state) => state.countries.backUpCountries);
-  const dispatch = useAppDispatch();
-  const [page, setPage] = React.useState<number>(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState<number>(10);
+  const countriesList = useAppSelector((state) => state.countries.countries)
+  const countries = useAppSelector((state) => state.countries.backUpCountries)
+  const dispatch = useAppDispatch()
+  const [page, setPage] = React.useState<number>(0)
+  const [rowsPerPage, setRowsPerPage] = React.useState<number>(10)
   const emptyRows: number =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - countriesList.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - countriesList.length) : 0
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
   ) => {
-    setPage(newPage);
-  };
+    setPage(newPage)
+  }
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  useEffect(function () {
-    if (countries.length !== 250) dispatch(fetchCountries());
-  }, [countries.length]);
+    setRowsPerPage(parseInt(event.target.value, 10))
+    setPage(0)
+  }
 
   useEffect(
     function () {
-      if (page) setPage(0);
+      if (countries.length !== 250) dispatch(fetchCountries())
+    },
+    [countries.length]
+  )
+
+  useEffect(
+    function () {
+      if (page) setPage(0)
     },
     [countriesList]
-  );
+  )
 
   return (
     <Box
@@ -59,6 +62,7 @@ function Home_Table() {
         width: "auto",
         margin: "0.5rem",
         justifyContent: "center",
+        height: 900,
       }}
     >
       {!countriesList.length ? (
@@ -104,7 +108,7 @@ function Home_Table() {
         </TableContainer>
       )}
     </Box>
-  );
+  )
 }
 
-export default Home_Table;
+export default Home_Table
